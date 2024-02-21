@@ -23,3 +23,11 @@ def list_companies(db: Session = Depends(get_db)):
     if not programs:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No companies found")
     return programs
+
+@app.post("/company", status_code=201)
+def add_company(company: CompanySchema, db: Session = Depends(get_db)) -> CompanySchema:
+    db_company = Company(**company.model_dump()) # **data.dict() deprecated
+    db.add(db_company)
+    db.commit()
+    db.refresh(db_company) # Vi ser till att vi får den uppdaterade versionen med ID't
+    return db_company
