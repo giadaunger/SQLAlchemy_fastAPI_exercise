@@ -5,6 +5,7 @@ from fastapi import Request
 from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy import select, update, delete, insert
 from app.database.models import Company
+from app.database.schemas import CompanySchema
 
 
 # Funktion som körs när vi startar FastAPI - 
